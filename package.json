@@ -1,0 +1,23 @@
+{
+  "name": "cms",
+  "version": "1.0.1",
+  "description": "a cms using node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prabhat04011998/cms.git"
+  },
+  "author": "prabhat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prabhat04011998/cms/issues"
+  },
+  "homepage": "https://github.com/prabhat04011998/cms#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
+  }
+}
