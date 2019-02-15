@@ -18,6 +18,7 @@
   "homepage": "https://github.com/prabhat04011998/cms#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
     "nodemon": "^1.18.10"
   }
 }
