@@ -46,8 +46,24 @@ router.put('/edit/:id',(req,res)=>{
         post.status=req.body.status;
         post.allowComments=allowComments;
         post.body=req.body.body;
+
+        if(!isEmpty(req.files)){
+            let file=req.files.file;
+            filename=Date.now()+'-'+file.name;
+            post.file=filename;
+            let dirUploads='./public/uploads/'
+            
+            file.mv(dirUploads+filename,(err)=>{
+                if (err) throw err;
+            });
+    
+        }
+        
         post.save().then(updatePost=>{
-            res.redirect('/admin/posts');
+            req.flash('success-message',`Post " ${req.body.title} "Updated successfully`);
+            res.redirect('/admin/posts')
+        }).catch(error=>{
+            console.log(`Could not post data Due to ${error}`)
         })
 
     })
@@ -57,7 +73,7 @@ router.delete('/:id',(req,res)=>{
     Post.findOne({_id:req.params.id}).then(post=>{
         fs.unlink(uploadDir+post.file,(err)=>{
             post.remove();
-            //req.flash('success message','post was successfully deleted');
+            req.flash('success message','post was successfully deleted');
             res.redirect('/admin/posts');
         });
         
@@ -104,9 +120,10 @@ router.post('/create',(req,res)=>{
     
      
     newPost.save().then(savedPost=>{
+        req.flash('success-message',`Post " ${req.body.title} "saved successfully`);
         res.redirect('/admin/posts')
     }).catch(error=>{
-        console.log("could not poost data due to"+error);
+        console.log("could not post data due to"+error);
     })
 
     }

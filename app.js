@@ -8,6 +8,7 @@ const bodyParser=require('body-parser');
 const upload=require('express-fileupload');
 const Post=require('./models/Post');
 const flash=require('connect-flash'); 
+const session=require('express-session');
 const methodOverride=require('method-override');
 
 
@@ -38,6 +39,20 @@ app.use(bodyParser.json()) ;
 
 //Method override
 app.use(methodOverride('_method'));
+
+app.use(session({
+    secret:'prabhat123bhaicoderhai',
+    resave:true,
+    saveUninitialized:true
+}));
+app.use(flash());
+
+//local variables using middlewares
+app.use((req,res,next)=>{
+    res.locals.success_message=req.flash('success-message');
+    next();
+
+})
 
 //load routes
 const home=require('./routes/home');
