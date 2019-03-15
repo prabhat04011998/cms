@@ -7,6 +7,7 @@ const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
 const upload=require('express-fileupload');
 const Post=require('./models/Post');
+const flash=require('connect-flash'); 
 const methodOverride=require('method-override');
 
 

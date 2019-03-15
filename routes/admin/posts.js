@@ -1,7 +1,10 @@
 const express=require('express');
 const router=express.Router();
 const Post=require('../../models/Post');
-const {isEmpty}=require('../../helpers/upload-helper');
+const {isEmpty, uploadDir}=require('../../helpers/upload-helper');
+const fs=require('fs');
+var flash = require('connect-flash');
+const path=require('path');      
 
 
 
@@ -51,9 +54,14 @@ router.put('/edit/:id',(req,res)=>{
 });
 
 router.delete('/:id',(req,res)=>{
-    Post.remove({_id:req.params.id}).then(result=>{
-        res.redirect('/admin/posts');
-    })
+    Post.findOne({_id:req.params.id}).then(post=>{
+        fs.unlink(uploadDir+post.file,(err)=>{
+            post.remove();
+            //req.flash('success message','post was successfully deleted');
+            res.redirect('/admin/posts');
+        });
+        
+    });
 });
 
 router.post('/create',(req,res)=>{

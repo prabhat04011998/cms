@@ -18,6 +18,7 @@
   "homepage": "https://github.com/prabhat04011998/cms#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
     "express": "^4.16.4",
     "express-fileupload": "^1.1.2-alpha.1",
     "express-handlebars": "^3.0.0",
