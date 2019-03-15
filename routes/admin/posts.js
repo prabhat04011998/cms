@@ -65,39 +65,52 @@ router.delete('/:id',(req,res)=>{
 });
 
 router.post('/create',(req,res)=>{
-    let filename='';
-
-    if(!isEmpty(req.files)){
-        let file=req.files.file;
-        filename=Date.now()+'-'+file.name;
-        let dirUploads='./public/uploads/'
-        
-        file.mv(dirUploads+filename,(err)=>{
-            if (err) throw err;
-        });
-
+    let errors=[];
+    if(!req.body.title){
+        errors.push({message:'Please Fill your titile'});
     }
-    
-    
-    if(req.body.allowComments){
-        allowComments=true;
+    if(!req.body.body){
+        errors.push({message:'Please Enter Your Description'});
+    }
+    if(errors.length>0){
+        res.render('admin/posts/create',{errors:errors});
     }else{
-        allowComments=false;
-    }
-    const newPost=new Post({
-    title:req.body.title,
-    status:req.body.status,
-    allowComments:allowComments,
-    body:req.body.body,
-    file:filename
-});
+        let filename='';
 
- 
-newPost.save().then(savedPost=>{
-    res.redirect('/admin/posts')
-}).catch(error=>{
-    console.log("could not poost data due to"+error);
-})
+        if(!isEmpty(req.files)){
+            let file=req.files.file;
+            filename=Date.now()+'-'+file.name;
+            let dirUploads='./public/uploads/'
+            
+            file.mv(dirUploads+filename,(err)=>{
+                if (err) throw err;
+            });
+    
+        }
+        
+        
+        if(req.body.allowComments){
+            allowComments=true;
+        }else{
+            allowComments=false;
+        }
+        const newPost=new Post({
+        title:req.body.title,
+        status:req.body.status,
+        allowComments:allowComments,
+        body:req.body.body,
+        file:filename
+    });
+    
+     
+    newPost.save().then(savedPost=>{
+        res.redirect('/admin/posts')
+    }).catch(error=>{
+        console.log("could not poost data due to"+error);
+    })
+
+    }
+
     //console.log(req.body.allowComments); 
 })
 module.exports=router;
