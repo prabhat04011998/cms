@@ -25,9 +25,9 @@ mongoose.connect('mongodb://localhost/cms').then((db)=>{
 app.use(express.static(path.join(__dirname,'public')));
 //Set View Engine
 
-const {select}=require('./helpers/handlebars-helpers');
+const {select,GenerateDate}=require('./helpers/handlebars-helpers');
 
-app.engine('handlebars',exphbs({defaultLayout: 'home',helpers:{select:select}}))
+app.engine('handlebars',exphbs({defaultLayout: 'home',helpers:{select:select,GenerateDate:GenerateDate}}))
 app.set('view engine','handlebars');
 
 // upload middleware
