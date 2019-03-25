@@ -58,11 +58,13 @@ app.use((req,res,next)=>{
 const home=require('./routes/home');
 const admin=require('./routes/admin');
 const posts=require('./routes/admin/posts');
+const category=require('./routes/admin/Categories');
 
 //use routes
 app.use('/',home); 
 app.use('/admin',admin);
 app.use('/admin/posts',posts);
+app.use('/admin/categories',category);
 app.listen(4500,()=>{
     console.log(`server is listing on the port 4500`);
 })
