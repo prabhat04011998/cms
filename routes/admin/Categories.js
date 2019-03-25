@@ -18,13 +18,36 @@ router.get('/',(req,res)=>{
     
 });
 
+router.get('/edit/:id',(req,res)=>{
+    Category.findOne({_id:req.params.id}).then(category =>{
+        res.render('admin/categories/edit',{category:category});
+    }).catch(error=>{
+        res.send(error); 
+    })
+    
+});
+
+router.put('/edit/:id',(req,res)=>{
+    Category.findOne({_id:req.params.id}).then(category =>{
+        category.name=req.body.name;
+        category.save().then(savedCategory=>{
+            res.redirect('/admin/categories');
+
+        })
+        
+    }).catch(error=>{
+        res.send(error); 
+    })
+    
+});
+
 router.post('/create',(req,res)=>{
     const newCategory=new Category({
         name:req.body.name,
 
     });
     newCategory.save().then(savedCategory=>{
-        res.render('admin/categories');
+        res.redirect('/admin/categories');
     });
 })
 

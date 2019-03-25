@@ -1,17 +1,20 @@
-<h1>Create Category</h1>
 
+<h1>Create Category</h1>
+<div class="row">
     <div class="col-sm-4">
-        <form action="admin/categories/create" method="POST">
-        <div class="form-group">
-            <label for="name">Category Name</label>
-            <input type="text" name="name" class="form-control"placeholder="Enter Title">
-        </div>
-        
-        </form>
-        <button class="btn btn-primary">Create Category</button>
+        <form action="admin/categories/create" method="post">
+            <div class="form-group">
+                <label for="name">Category Name:</label>
+                <input type="text" name="name" class="form-control"placeholder="Enter Title">
+            </div>
+            <button class="btn btn-primary">Create Category</button>    
+        </form>   
     </div>
-    <br>
-    <hr>
+</div>
+<br>
+<hr>
+
+    <div class="row">
     <div class="col-sm-8">
         <h1>Categories</h1>
         <table class="table">
@@ -26,8 +29,10 @@
                 <tr>
                     <td>{{id}}</td>
                     <td>{{name}}</td>
+                    <td><a href="/admin/categories/edit/{{id}}" class="btn btn-info" >Edit</a></td>
                 </tr>
                 {{/each}}
             </tbody>
         </table>
     </div>
+</div>

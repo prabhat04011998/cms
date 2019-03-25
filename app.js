@@ -65,6 +65,7 @@ app.use('/',home);
 app.use('/admin',admin);
 app.use('/admin/posts',posts);
 app.use('/admin/categories',category);
+
 app.listen(4500,()=>{
-    console.log(`server is listing on the port 4500`);
+    console.log('server is listening on the posrt 4500');
 })
