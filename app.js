@@ -41,7 +41,7 @@ app.use(bodyParser.json()) ;
 app.use(methodOverride('_method'));
 
 app.use(session({
-    secret:'prabhat123bhaicoderhai',
+    secret:'prabhatsharma',
     resave:true,
     saveUninitialized:true
 }));
@@ -50,6 +50,7 @@ app.use(flash());
 //local variables using middlewares
 app.use((req,res,next)=>{
     res.locals.success_message=req.flash('success-message');
+    res.locals.error_message=req.flash('error-message');
     next();
 
 })

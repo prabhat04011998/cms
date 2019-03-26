@@ -22,10 +22,19 @@
   <body>
 
     <!-- Navigation -->
+
 {{> home/home-nav}}
+
 
     <!-- Page Content -->
     <div class="container">
+      {{#if errors}}
+      {{#each errors}}
+        <div class="alert alert-danger">{{message}}</div>
+      
+      {{/each}}
+      {{/if}}
+      {{>home/format-msgs}}
 
       {{{body}}}
       <!-- /.row -->
