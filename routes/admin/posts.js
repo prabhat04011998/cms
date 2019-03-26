@@ -3,6 +3,7 @@ const router=express.Router();
 const Post=require('../../models/Post');
 const {isEmpty, uploadDir}=require('../../helpers/upload-helper');
 const fs=require('fs');
+const Category=require('../../models/Category');
 var flash = require('connect-flash');
 const path=require('path');      
 
@@ -14,7 +15,7 @@ router.all('/*',(req,res,next)=>{
 })
 
 router.get('/',(req,res)=>{
-    Post.find().then(posts=>{
+    Post.find({}).populate('category').then(posts=>{
         res.render('admin/posts',{posts:posts});
     }).catch(error=>{
         res.send(error); 
@@ -22,16 +23,20 @@ router.get('/',(req,res)=>{
     
 });
 router.get('/create',(req,res)=>{
-    res.render('admin/posts/create')
+    Category.find({}).then(categories=>{
+        res.render('admin/posts/create',{categories:categories});
+    })
+    
 })
 router.get('/create',(req,res)=>{
     res.send('IT"S a Create page')
 });
 router.get('/edit/:id',(req,res)=>{
     Post.findOne({_id:req.params.id}).then(post=>{
-        res.render('admin/posts/edit',{post:post});
-    })
-    
+        Category.find({}).then(categories=>{
+            res.render('admin/posts/edit',{post:post,categories:categories});
+        })    
+    }) 
 }) ;
 router.put('/edit/:id',(req,res)=>{
 
@@ -45,6 +50,8 @@ router.put('/edit/:id',(req,res)=>{
         post.title=req.body.title;
         post.status=req.body.status;
         post.allowComments=allowComments;
+        post.category=req.body.category;
+        
         post.body=req.body.body;
 
         if(!isEmpty(req.files)){
@@ -115,6 +122,7 @@ router.post('/create',(req,res)=>{
         status:req.body.status,
         allowComments:allowComments,
         body:req.body.body,
+        category:req.body.category,
         file:filename
     });
     

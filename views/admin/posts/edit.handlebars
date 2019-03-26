@@ -8,6 +8,19 @@
     <label for="File">File</label>
     <input name="file" type="file" class="form-control" >
 </div> 
+
+<div class="form-group">
+    <label for="category">Category</label>
+    <select name="category"  class="form-control" id="category" >
+    {{#select post.category}}
+        {{#each categories}}        
+            <option value="{{id}}">{{name}}</option>    
+        {{/each}}
+    {{/select}}
+    
+    </select>
+</div>
+
 <div class="form-group">
     <label for="status">Status</label>
     <select name="status"  class="form-control" id="status" >
