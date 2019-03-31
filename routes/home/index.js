@@ -33,6 +33,9 @@ router.get('/about',(req,res)=>{
 router.get('/login',(req,res)=>{
     res.render('home/login')
 })
+router.post('/login',(req,res)=>{
+    res.send('Login Works')
+})
 router.get('/register',(req,res)=>{
     res.render('home/register')
 })

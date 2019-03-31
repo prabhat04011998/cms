@@ -10,6 +10,7 @@ const Post=require('./models/Post');
 const flash=require('connect-flash'); 
 const session=require('express-session');
 const methodOverride=require('method-override');
+const {mongoDbUrl}=require('./config/database');
 
 
 mongoose.Promise=global.Promise;
@@ -49,8 +50,8 @@ app.use(flash());
 
 //local variables using middlewares
 app.use((req,res,next)=>{
-    res.locals.success_message=req.flash('success-message');
-    res.locals.error_message=req.flash('error-message');
+    res.locals.success_message=req.flash('success_message');
+    res.locals.error_message=req.flash('error_message');
     next();
 
 })
