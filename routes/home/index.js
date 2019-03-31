@@ -5,6 +5,8 @@ const Category=require('../../models/Category');
 var flash = require('connect-flash');
 const User = require('../../models/User');
 const bcrypt=require('bcrypt');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 
 router.all('/*',(req,res,next)=>{
@@ -33,8 +35,14 @@ router.get('/about',(req,res)=>{
 router.get('/login',(req,res)=>{
     res.render('home/login')
 })
-router.post('/login',(req,res)=>{
-    res.send('Login Works')
+
+// APP LOGIN 
+router.post('/login',(req,res,next)=>{
+    passport.authenticate('local',{
+        successRedirect:'/admin',
+        failureRedirect:'/login',
+        failureFlash:true,
+    })(req,res,next);
 })
 router.get('/register',(req,res)=>{
     res.render('home/register')
